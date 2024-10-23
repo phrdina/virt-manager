@@ -33,12 +33,14 @@ jobs:
 
     - name: Build RPM and test install
       run: |
+        git config --global --add safe.directory $PWD
+
         meson setup build \
           -Dupdate-icon-cache=false \
           -Dcompile-schemas=false \
           -Dtests=disabled
         meson dist -C build
-        rpmbuild -tb build/meson_dist/virt-manager*.tar.xz
+        rpmbuild -tb build/meson-dist/virt-manager*.tar.xz
         dnf install -y \
           ~/rpmbuild/RPMS/noarch/virt-install*.rpm \
           ~/rpmbuild/RPMS/noarch/virt-manager-common*.rpm
