@@ -1048,6 +1048,9 @@ class Guest(XMLBuilder):
             dev.set_defaults(self)
 
         self.add_virtioscsi_controller()
+
+        if self.is_uefi() and self.os.is_arm():
+            self.num_pcie_root_ports = 13
         self.add_q35_pcie_controllers()
         self._add_spice_devices()
 
